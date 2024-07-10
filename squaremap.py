@@ -65,12 +65,11 @@ except:
 	shutil.rmtree(f'{zoom}-{now}')
 	exit('URL is invalid (did you include "https"?) or service is not responding, exiting..\n')
 if len(tiles) != downloaded:
-	shutil.rmtree(f'{zoom}-{now}')
-	exit(f'{len(tiles) - downloaded} of {len(tiles)} tiles were not successfully downloaded (wrong world name?), exiting..\n')
+	print(f'{len(tiles) - downloaded} of {len(tiles)} tiles were not successfully downloaded, continuing..')
 download_stop = time.time()
-print(f'Downloading {len(tiles)} tiles took {round(download_stop - download_start, 2)}s')
+print(f'Downloading {downloaded} tiles took {round(download_stop - download_start, 2)}s')
 
-print(f'Merging {len(tiles)} tiles..')
+print(f'Merging {downloaded} tiles..')
 merge_start = time.time()
 width = 512 * len(range_x)
 height = 512 * len(range_z)
@@ -82,13 +81,15 @@ x_px = 0
 for x in range_x:
 	z_px = 0
 	for z in range_z[::range_z_step]:
-		tile = Image.open(f'{zoom}-{now}/{x}_{z}.png')
-		output.paste(tile, (x_px, z_px))
+		try:
+			tile = Image.open(f'{zoom}-{now}/{x}_{z}.png')
+			output.paste(tile, (x_px, z_px))
+		except: pass
 		z_px += 512
 	x_px += 512
 merge_stop = time.time()
 shutil.rmtree(f'{zoom}-{now}')
-print(f'Merging {len(tiles)} tiles took {round(merge_stop - merge_start, 2)}s')
+print(f'Merging {downloaded} tiles took {round(merge_stop - merge_start, 2)}s')
 
 print('Saving output map..')
 save_start = time.time()
