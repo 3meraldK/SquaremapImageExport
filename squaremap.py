@@ -13,6 +13,7 @@ import math
 import asyncio
 import shutil
 import aiohttp
+import re
 from PIL import Image
 
 # Asynchronous downloading
@@ -39,7 +40,10 @@ print('Squaremap Image Export by 3meraldK')
 if len(sys.argv) < 8 or sys.argv[3] not in ['0', '1', '2', '3']:
 	exit('Usage: python squaremap.py [map url] [world name] [zoom=0..3] [corner coordinates]\n')
 
-link = sys.argv[1].rstrip('/')
+link = ''.join(re.split('(/)', sys.argv[1])[0:5])
+if link.startswith('https://') == False:
+	exit('The [map url] is invalid, it should start with https://, exiting..\n')
+
 world = sys.argv[2]
 zoom = int(sys.argv[3])
 corners = sys.argv[4:8]
