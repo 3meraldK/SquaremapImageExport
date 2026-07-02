@@ -16,7 +16,7 @@ import aiohttp
 import re
 from PIL import Image
 
-# Asynchronous downloading
+# Utility functions for asynchronous downloading
 async def download_tile(session, url, path):
 	global downloaded
 	async with session.get(url) as response:
@@ -81,12 +81,12 @@ range_z = range(tile_corners[1], tile_corners[3] + 1, range_z_step)
 tiles = [(x, z) for x in range_x for z in range_z]
 if len(tiles) == 0:
 	shutil.rmtree(f'{zoom}-{now}')
-	exit('Did you put correct corners in? No defined tiles to download, exiting..\n')
+	exit('Command parameter [corner coordinates] is invalid (did you preserve the required format?), exiting..\n')
 try:
 	asyncio.run(download_tiles(tiles))
 except:
 	shutil.rmtree(f'{zoom}-{now}')
-	exit('URL is invalid (did you include "https"?) or service is not responding, exiting..\n')
+	exit('URL is wrong or map website is not responding, exiting..\n')
 if len(tiles) != downloaded:
 	print(f'{len(tiles) - downloaded} of {len(tiles)} tiles were not successfully downloaded, continuing..')
 download_stop = time.time()
