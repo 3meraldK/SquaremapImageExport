@@ -37,23 +37,34 @@ async def download_tiles(tiles):
 print('')
 print('Squaremap Image Export by 3meraldK')
 
-if len(sys.argv) < 8 or sys.argv[3] not in ['0', '1', '2', '3']:
-	exit('Usage: python squaremap.py [map url] [world name] [zoom=0..3] [corner coordinates]\n')
+# Validating parameters
+if len(sys.argv) != 9:
+	exit('Usage (read repository\'s readme): python squaremap.py [map url] [world name] [max zoom] [scale] [corner coordinates]\n')
 
 link = ''.join(re.split('(/)', sys.argv[1])[0:5])
 if link.startswith('https://') == False:
 	exit('The [map url] is invalid, it should start with https://, exiting..\n')
 
 world = sys.argv[2]
-zoom = int(sys.argv[3])
-corners = sys.argv[4:8]
 
-for i, corner in enumerate(corners):
-	try: corners[i] = int(corner)
-	except ValueError:
-		exit('Corners were not put in correct format, exiting..\n')
+try:
+	max_zoom = int(sys.argv[3])
+	scale = int(sys.argv[4])
+	corners = sys.argv[5:9]
+	for i, corner in enumerate(corners):
+		corners[i] = int(corner)
+except ValueError:
+	exit('Command parameters [corner coordinates], [scale] or [max zoom] should be whole numbers, exiting..\n')
 
-blocks_per_tile = 2 ** (12 - zoom)
+try:
+	if not (math.log2(scale)).is_integer(): raise ValueError
+except ValueError:
+	exit('Command parameter [scale] is not a power of 2, exiting..\n')
+
+zoom = int(max_zoom - math.log2(scale))
+if zoom < 0: exit('Command parameters [scale] or [max zoom] are invalid, exiting..\n')
+
+blocks_per_tile = 2 ** (9 + max_zoom - zoom)
 tile_corners = [math.floor(corner / blocks_per_tile) for corner in corners]
 now = int(time.time())
 if not os.path.exists(f'{zoom}-{now}'):
