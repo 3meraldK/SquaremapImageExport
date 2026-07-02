@@ -1,5 +1,5 @@
 # SquaremapImageExport
-Python script to generate the Squaremap's .png map image, with [the uv](https://github.com/astral-sh/uv) support. Tested on Windows 10 with Python 3.11.5 and 3.13.14 on EarthMC Minecraft server.
+Python script to generate the Squaremap's .png map image, with [the uv](https://github.com/astral-sh/uv) support. Tested on Windows 10 & 11 with Python 3.11.5 and 3.13.14 on EarthMC Minecraft server.
 
 ## Installation
 
