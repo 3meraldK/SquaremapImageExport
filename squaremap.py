@@ -1,3 +1,11 @@
+# /// script
+# dependencies = [
+#     "Pillow",
+#     "aiohttp"
+# ]
+# ///
+# astral-sh/uv support above
+
 import sys
 import os
 import time
