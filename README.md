@@ -1,5 +1,5 @@
 # SquaremapImageExport
-Python script to generate the Squaremap's .png map image, with [the uv](https://github.com/astral-sh/uv) support. Tested on Windows 10 & 11 with Python 3.11.5 and 3.13.14 on EarthMC Minecraft server.
+Python script to generate the Squaremap's (not Dynmap, etc.) .png map image, with [the uv](https://github.com/astral-sh/uv) support. Tested on Windows 10 & 11 with Python 3.11.5 and 3.13.14 on EarthMC Minecraft server.
 
 ## Installation
 
@@ -20,7 +20,7 @@ Python script to generate the Squaremap's .png map image, with [the uv](https://
 ## Usage
 - `[map url]` - URL to the map
 - `[world name]` - name of the world you want to get the map of. To get it, click the small link button in bottom-left corner on a website. The page should refresh and the updated URL should include the world's name in it, for example: `?world=world_name`.
-- `[max zoom]` - this whole number depends on map. To find out, hop on the map website, open Developer Tools (Ctrl+Shift+I on Windows), go to Network tab, pan around the map while on max zoom and look for requests (do it until you find one) named like x_y.png, where x and y are any numbers. Right click on it and click Copy > Copy URL. URL should be ending with `/z/x_y.png` where z is the max zoom.
+- `[max zoom]` - this whole number depends on world. To find out, hop on [map url]/tiles/[world_name]/settings.json, for example https://earthsmp.com/map/tiles/overworld/settings.json and search for `"max":n` where `n` is the max zoom.
 - `[scale]` - how many blocks should be 1 pixel. This whole number must be a power of 2 (so 1, 2, 4, 8...). The limit is 2^(max zoom) pixels.
 - `[corner coordinates]` - series of whole numbers in format "x1 z1 x2 z2" representing any diagonal corners (their in-game coordinates) of the output map.
 - ✅ Good example (test it out!): `python squaremap.py https://map.earthmc.net minecraft_overworld 5 32 -2280 -13344 7720 -6408`
