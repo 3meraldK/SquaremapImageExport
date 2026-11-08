@@ -1,5 +1,5 @@
 # SquaremapImageExport
-Python script to generate the Squaremap's (not Dynmap, etc.) .png map image, with [the uv](https://github.com/astral-sh/uv) support. Tested on Windows 10 & 11 with Python 3.11.5 and 3.13.14 on EarthMC Minecraft server.
+Python script to generate the Squaremap's (not Dynmap) map image, with [astral-sh/uv](https://github.com/astral-sh/uv) support. Tested on Windows 10 & 11 with Python 3.13.13 on EarthMC Minecraft server.
 
 ## Installation
 
@@ -8,23 +8,17 @@ Python script to generate the Squaremap's (not Dynmap, etc.) .png map image, wit
 2. Open a terminal of choice (e.g. the Command Prompt) and navigate to the directory.
 
 ### 2.a. Classic way
-1. Download Python, at least 3.11.5.
-2. Download [`requirements.txt`](https://raw.githubusercontent.com/3meraldK/SquaremapImageExport/main/requirements.txt) to the same directory.
+1. Download Python, preferably 3.13.13 or newer.
+2. Download [`requirements.txt`](https://raw.githubusercontent.com/3meraldK/SquaremapImageExport/main/requirements.txt) to the directory of the script.
 3. In the terminal you opened before, run `pip install -r requirements.txt` to download required dependencies.
-4. Run `python squaremap.py [map url] [world name] [max zoom] [scale] [corner coordinates]`.
+4. Run `python squaremap.py`.
 
 ### 2.b. astral.sh/uv
-1. Follow [official docs](https://docs.astral.sh/uv/#installation) to install uv (to get Python, at least 3.11.5)
-2. In the terminal you opened before, run `uv run squaremap.py [map url] [world name] [max zoom] [scale] [corner coordinates]`.
+1. Install [astral-sh/uv](https://docs.astral.sh/uv/#installation) with Python, preferably 3.13.13 or newer.
+2. In the terminal you opened before, run `uv run squaremap.py`.
 
-## Usage
-- `[map url]` - URL to the map
-- `[world name]` - name of the world you want to get the map of. To get it, click the small link button in bottom-left corner on a website. The page should refresh and the updated URL should include the world's name in it, for example: `?world=world_name`. (for EarthMC, refer [here](https://github.com/3meraldK/SquaremapImageExport/blob/main/earthmc.md).)
-- `[max zoom]` - this whole number depends on world. To find out, hop on [map url]/tiles/[world_name]/settings.json, for example https://map.earthmc.net/tiles/minecraft_overworld/settings.json and search for `"max":n` where `n` is the max zoom.
-- `[scale]` - how many blocks should be 1 pixel. This whole number must be a power of 2 (so 1, 2, 4, 8...). The limit is 2^(max zoom) pixels.
-- `[corner coordinates]` - series of whole numbers in format "x1 z1 x2 z2" representing any diagonal corners (their in-game coordinates) of the output map.
-- ✅ Good example (test it out!): `python squaremap.py https://map.earthmc.net minecraft_overworld 5 32 -2280 -13344 7720 -6408`
-- ⛔ Wrong example: `python squaremap.py map.earthmc.net 2.5 12.5 (-1000, -2000) (1000, 4000)`
+### 3. What to expect
+It will run a wizard where you input a map URL (https://themapurl.com), scale and map bounds.
 
 ## Downloaded example
 ![image](https://github.com/3meraldK/SquaremapImageExport/assets/48335651/2c08b50f-8d18-4a86-a75a-adcc7021a125)
